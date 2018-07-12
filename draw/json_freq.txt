@@ -1,0 +1,1 @@
+{"type": "freq", "xs": [1, 2, 3], "lines": [["accurate_CmSketch+hash_num=1.0+bit_per_counter=1.0+counter_per_array=1.0.txt", "accurate_CmSketch+hash_num=1.0+bit_per_counter=1.0+counter_per_array=1.0.txt", "accurate_CmSketch+hash_num=1.0+bit_per_counter=1.0+counter_per_array=1.0.txt"]]}
