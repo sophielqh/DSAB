@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
                     double value = stod(valueStr);
                     player->parameterSet(name,value);
                     if(indent!=-1)
-                        s.assign(s,indent+1);
+                        s.assign(s.c_str(),indent+1);
                     else
                         break;
                 }
