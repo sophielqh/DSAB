@@ -1,0 +1,8 @@
+{
+    "type": "freq",
+    "xs": [1, 2, 3],
+    "lines": [ ["frequency_asketch_test1.dat_hashnum4_bitPerCounter16_counterPerArray65344.txt", "frequency_asketch_test2.dat_hashnum4_bitPerCounter16_counterPerArray65344.txt", "frequency_asketch_test3.dat_hashnum4_bitPerCounter16_counterPerArray65344.txt"], 
+               ["frequency_cmmsketch_test1.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt", "frequency_cmmsketch_test2.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt", "frequency_cmmsketch_test3.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt"] 
+             ],
+    "output": "test.pdf"
+}

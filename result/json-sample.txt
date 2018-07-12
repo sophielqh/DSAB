@@ -1,0 +1,9 @@
+{
+    "type": "topk",
+    "xs": [1, 2, 3],
+    "lines": [ ["top100_result_cmsketch_test1.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt", "top100_result_cmsketch_test1.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt", "top100_result_cmsketch_test1.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt"], 
+               ["top100_result_cmsketch_test1.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt", "top100_result_cmsketch_test1.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt", "top100_result_cmsketch_test1.dat_hashnum4_bitPerCounter16_counterPerArray65536.txt"] 
+             ],
+    "exact":  "topk_exactRank_test1.dat.txt", //TODO, may have multiple exacts on different data set?
+    "output": "test.pdf"
+}
