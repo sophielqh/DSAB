@@ -45,11 +45,12 @@ def choosenSketch():
     '''
     user has finished choosing sketches to be tested
     '''
+    clearConfig('sketch')
     global  sketchList
     sketchList=request.form.getlist('sketch')
     for i in sketchList :
         filepath = './config/'+i+'.txt'
-        with open(filepath,'a+') as f:
+        with open(filepath,'w') as f:
             f.write('sketch='+i+'\n')
             writeConfig('sketch='+i+'\n')
     return render_template('choosenSketch.html')
@@ -59,6 +60,7 @@ def choosenDataset():
     '''
     user has finished choosing dataset to be tested
     '''
+    clearConfig('dataset')
     if request.method  == 'POST':
         datasetList = request.form.getlist('dataset')
         for i in datasetList:
@@ -206,15 +208,15 @@ def draw():
         json_info['type'] = 'freq'
         json_info['xs'] =[ i+1 for i in range(numOfXinterval)]
         tmpList = []
+        json_info['lines'] = [] #init lines
         j = 0
         for i in range(numOfXinterval*numOfLines):
-            if j== numOfXinterval:
+            tmpList.append('./result/'+request.form.get(str(i)))
+            j += 1
+            if j == numOfXinterval:
                 json_info['lines'].append(tmpList)
                 tmpList = []
                 j = 0
-            tmpList.append('./result/'+request.form.get(str(i)))
-            j += 1
-        json_info['lines'] = tmpList
         json_info['output'] = 'zcxy.pdf'
         print(json_info)
         json_point_path = './result/json_freq.txt'
@@ -239,6 +241,13 @@ def writeConfig(s):
     configFilePath = './config/config.txt'
     with open(configFilePath,'a+') as f:
         f.write(s+'\n')
+def clearConfig(s): #filter out configs starting with s
+    configFilePath = './config/config.txt'
+    with open(configFilePath, 'r') as f:
+        lines = [line.strip() for line in f if not line.startswith(s)]
+    lines = [line + '\n' for line in lines if len(line) > 1] #remove empty lines
+    with open(configFilePath, 'w') as f:
+        f.writelines(lines)
 
 if __name__ == '__main__':
     app.run(host= '0.0.0.0',port =8086, debug=True)             #启动app的调试模式
