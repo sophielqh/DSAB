@@ -28,9 +28,11 @@
 	{
   	var d = JSON.parse(data);
   	var s = '<form action="/choosenSketch" method="POST">'
-    s += '<table border="1"><tr><th>sketch</th></tr>';
-   	for (var i = 0; i < d.sketchArray.length; i++) {
-        s += '<tr><td><input type="checkbox" name="sketch" value=' + d.sketchArray[i].name + '>' +d.sketchArray[i].name+  '</tr>';
+    s += '<table border="1"><tr><th>sketch</th><th>freq</th><th>topk</th></tr>';
+    for (var i = 0; i < d.sketchArray.length; i++) {
+        s += '<tr><td><input type="checkbox" name="sketch" value=' + d.sketchArray[i].name + '>' +d.sketchArray[i].name+  '</td>';
+        s += '<td><input type="checkbox" name="freq" value=' +d.sketchArray[i].name + '></td>';
+        s += '<td><input type="checkbox" name="topk" value=' +d.sketchArray[i].name + '></td></tr>'
     }
     s += '</table>'
     s += '<input type="submit" value="提交"/>'

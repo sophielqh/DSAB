@@ -48,11 +48,17 @@ def choosenSketch():
     clearConfig('sketch')
     global  sketchList
     sketchList=request.form.getlist('sketch')
-    for i in sketchList :
-        filepath = './config/'+i+'.txt'
-        with open(filepath,'w') as f:
-            f.write('sketch='+i+'\n')
-            writeConfig('sketch='+i+'\n')
+    tasks = ['freq', 'topk']
+    for sketch in sketchList:
+        filepath = './config/' + sketch +'.txt'
+        with open(filepath,'w') as f: #clear old content
+            f.write('sketch='+ sketch +'\n')
+            writeConfig('sketch='+ sketch +'\n')
+    for task in tasks: #add supported task
+        for sketch in request.form.getlist(task):
+            filepath = './config/' + sketch +'.txt'
+            with open(filepath,'a+') as f:
+                f.write('task=' + task + '\n')
     return render_template('choosenSketch.html')
 
 @app.route('/choosenDataset',methods=['POST','GET'])
@@ -222,7 +228,8 @@ def draw():
         json_point_path = './result/json_freq.txt'
         with open(json_point_path,'w') as f:
             json.dump(json_info,f)
-        Popen('python3 ./result/res_simple_analyzer.py ./result/json_freq.txt',shell=True)
+        p = Popen('python3 ./result/res_simple_analyzer.py ./result/json_freq.txt',shell=True)
+        p.wait() #wait for drawing to finish
         return redirect('/graphShow')
 @app.route('/graphShow',methods=['POST','GET'])
 def graphShow():
