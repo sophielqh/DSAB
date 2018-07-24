@@ -1,2 +1,0 @@
-sketch=CmSketch
-hash_num=1.0 bit_per_counter=1.0 counter_per_array=1.0
