@@ -58,11 +58,21 @@ int main(int argc, char *argv[]) {
         for (; j!=sketch.end(); ++j)
         {
             SketchBase* player = (SketchBase*)ClassFactory::getInstance().getClassByName(*j);
+            set<string> task;
             ifstream para("./config/"+*j+".txt");
             string s;
             getline(para,s);
             while (getline(para,s))
             {
+                int a=s.find("task=");
+                if(a!=-1)
+                {
+                    //read task lines
+                    string tmp(s,a+5,s.length()-a-5);
+                    task.insert(tmp);
+                    continue;
+                }
+                
                 string throughputFile = "throughput_"+*j;
                 string accFile = "accurate_"+*j;
                 while (true)
