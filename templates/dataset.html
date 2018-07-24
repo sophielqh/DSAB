@@ -28,9 +28,12 @@
 	{
   	var d = JSON.parse(data);
   	var s = '<form action="/choosenDataset" method="POST">'
-    s += '<table border="1"><tr><th>dataset</th><th>totalNum</th><th>distinctNum</th></tr>';
+    s += '<table border="1"><tr><th>dataset</th><th>totalNum</th><th>distinctNum</th><th>minFreq</th><th>maxFreq</th><th>bytePerItem</th></tr>';
    	for (var i = 0; i < d.datasetArray.length; i++) {
-        s += '<tr><td>' + '<input type="checkbox" name="dataset" value='+d.datasetArray[i].name+'>'+d.datasetArray[i].name+ '</td><td>' + d.datasetArray[i].totalNum + '</td><td>' + d.datasetArray[i].distingctNum+  '</td></tr>';
+        s += '<tr><td>' + '<input type="checkbox" name="dataset" value='+d.datasetArray[i].name+'>'+
+				d.datasetArray[i].name+ '</td><td>' + d.datasetArray[i].totalNum + '</td><td>' +
+				d.datasetArray[i].distinctNum+ '</td><td>' + d.datasetArray[i].minFrequency+ '</td><td>' +
+				d.datasetArray[i].maxFrequency+ '</td><td>' + d.datasetArray[i].bytePerItem+ '</td></tr>';
     }
     s += '</table>'
     s += '<input type="submit" value="提交"/>'

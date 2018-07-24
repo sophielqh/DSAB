@@ -1,0 +1,1 @@
+{"distributionArray": [{"name": "zipf", "parameterNum": 3, "parameterList": ["skewness", "totalNum", "distinctNum"]}, {"name": "powerlaw", "parameterNum": 3, "parameterList": ["skewness", "totalNum", "distinctNum"]}, {"name": "weibull", "parameterNum": 3, "parameterList": ["positive shape parameter", "totalNum", "distinctNum"]}]}
