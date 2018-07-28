@@ -19,6 +19,16 @@ def index():
 
 @app.route('/dataset')           #add route dataset
 def dataset():
+    with open('existingDataset.json', 'r') as f:
+        json_info = json.load(f)
+        for i in json_info['datasetArray']:
+            if os.path.exists('./dataset_temp/' + i["name"]):
+                i["location"] = "local"
+            else:
+                i["location"] = "cloud"
+    with open('existingDataset.json', 'w') as f:
+        json.dump(json_info, f)
+
     return render_template('dataset.html')
 
 @app.route('/existing',methods=['POST','GET'])
@@ -71,6 +81,13 @@ def choosenDataset():
             dataset_file = dataset_path + '/' + d
             if not os.path.exists(dataset_file):
                 cloud_download(dataset_file, d)
+                with open('existingDataset.json', 'r') as f:
+                    json_info = json.load(f)
+                    for i in json_info['datasetArray']:
+                        if i["name"] == d:
+                            i["location"] = "local"
+                with open('existingDataset.json', 'w') as f:
+                    json.dump(json_info, f)
 
         return redirect('/')
 
@@ -134,18 +151,20 @@ def setDistributionPara():
             para  = request.form.get("parameter")
             total = request.form.get("total")
             dist = request.form.get("distinct")
-            writeConfig('_' + para)
+            writeConfig('_' + str(float(para)))
             writeConfig('_' + total)
             writeConfig('_' + dist)
 
             #生成对应的数据集
             minFreq, maxFreq = generate_dataset(distributionName, float(para), int(total), int(dist))
 
+            datasetName = distributionName + '_' + str(float(para)) + '_' + total + '_' + dist + '.dat'
             with open('existingDataset.json', 'r') as f:
                 json_info = json.load(f)
-                json_info['datasetArray'].append({"name": distributionName, "totalNum": total,
+                json_info['datasetArray'].append({"name": datasetName, "totalNum": total,
                                                 "distinctNum": dist, "minFrequency": str(minFreq),
-                                                "maxFrequency": str(maxFreq), "bytePerItem": '4'})
+                                                "maxFrequency": str(maxFreq), "bytePerItem": '4',
+                                                "location": "local"})
             with open('existingDataset.json', 'w') as f:
                 json.dump(json_info, f)
         return redirect('/')
@@ -367,6 +386,7 @@ def generate_dataset(distriName, para, tot, dis):
     filesize = tot // filenum
     if (os.path.exists("./dataset_temp") == False):
         os.mkdir("./dataset_temp")
+    if (os.path.exists("./dataset_temp/temp") == False):
         os.mkdir("./dataset_temp/temp")
 
     def powerlaw(N, s):
@@ -476,7 +496,7 @@ def generate_dataset(distriName, para, tot, dis):
     if distriName == 'zipf' or distriName == 'powerlaw':
         props = powerlaw(dis, para)
     elif distriName == 'weibull':
-        pa = 0.1
+        pa = 0.3
         props = weibull(dis, pa, para)
 
     freq = [math.ceil(prop * tot) for prop in props]
