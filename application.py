@@ -76,6 +76,7 @@ def choosenDataset():
         dataset_path = './dataset_temp'
         if not os.path.exists(dataset_path):
             os.makedirs(dataset_path)
+        if not os.path.exists(dataset_path + '/zipf'):
             os.makedirs(dataset_path + '/zipf')
         for d in datasetList:
             dataset_file = dataset_path + '/' + d
