@@ -17,21 +17,22 @@ void frequencyTest(vector<string> & v,unordered_map<string, int> & item2freq, Sk
     }
     frequency_file.close();
 }
-//void topkTest(vector<string> & v, SketchBase& sketch,const int bytesPerStr, string topk_file_name )
-//{
-//    for(auto iter = v.begin();iter!=v.end();iter++)
-//        sketch.Insert(iter->c_str(), bytesPerStr);
-//
-//    /*accuracy test*/
-//    ofstream topk_file;
-//    topk_file.open("./result/"+topk_file_name);
-//    for (const auto& p: item2freq) {
-//         topk_file << p.second << "\t";
-//         topk_file << sketch.frequencyQuery(p.first.c_str(), bytesPerStr) << "\t";
-//         topk_file << endl;
-//    }
-//    topk_file.close();
-//}
+void topkTest(vector<string> & v,vector<itemType> & frequentItem,int k,SketchBase& sketch,const int bytesPerStr, string topk_file_name )
+{
+    for(auto iter = v.begin();iter!=v.end();iter++)
+        sketch.Insert(iter->c_str(), bytesPerStr);
+
+    /*accuracy test*/
+    vector<string> queryResult = sketch.topkQuery(k);
+    ofstream topk_file;
+    topk_file.open("./result/"+topk_file_name);
+    topk_file<<"True "<< "Report"<<endl;
+    for(int i =0;i<k;++k)
+    {
+        topk_file<<frequentItem[i].id<<" "<<queryResult[i];
+    }
+    topk_file.close();
+}
 void insertionSpeedTest(vector<string> & v,SketchBase& sketch,const int bytesPerStr,string throughput_file_name)
 {
     /*throuput test*/

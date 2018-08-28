@@ -4,10 +4,14 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <algorithm>
 #include <set>
 #include "test.h"
 using namespace std;
-
+bool negative_sort_item(itemType &a, itemType &b)
+{
+    return a.frequency > a.frequency;
+}
 int main(int argc, char *argv[]) {
     
     ifstream config("./config/config.txt");
@@ -54,6 +58,15 @@ int main(int argc, char *argv[]) {
             ++item2freq[string(str, bytesPerStr)];
             item2idx[string(str, bytesPerStr)]= idx++;
         }
+        vector<itemType> frequentItem;
+        for (const auto& p: item2freq)
+        {
+            itemType tmp;
+            tmp.id = p.first;
+            tmp.frequency = p.second;
+            frequentItem.push_back(tmp);
+        }
+        sort(frequentItem.begin(),frequentItem.end(),negative_sort_item);
         auto j = sketch.begin();
         for (; j!=sketch.end(); ++j)
         {
