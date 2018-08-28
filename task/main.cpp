@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
                 }
                 cout<<"ok"<<endl;
                 player->init();
-                frequencyTest(v,item2freq,*player,bytesPerStr,throughputFile+".txt",accFile+".txt");
+                frequencyTest(v,item2freq,*player,bytesPerStr,accFile+".txt");
             }
             
         }

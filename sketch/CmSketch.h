@@ -79,9 +79,10 @@ public:
         }
         return res;
     }
-    int topkQuery(const int & k)
+    vector<string> topkQuery(const int & k)
     {
-        return 0;
+       vector<string> topkItem;
+       return topkItem;
     }
     void reset()
     {

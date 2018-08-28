@@ -27,7 +27,7 @@ virtual void parameterSet(const string& parameterName, double & parameterValue)=
 virtual init() = 0;
 virtual void Insert(const char *str, const int & len) = 0;
 virtual int frequencyQuery(const char *str, const int & len) = 0;
-virtual int topkQuery(const int & k) = 0;
+virtual vector<string>  topkQuery(const int & k) = 0;
 virtual void reset() = 0;//reset sketch to the initial state
 */
 /*----SketchBase virtual function must be finished----*/
@@ -111,7 +111,7 @@ public:
         return res;
         /*----optional according to your need----*/
     }
-    int topkQuery(const int & k)
+    vector<string>  topkQuery(const int & k)
     {
         /*MUST have this function DO NOT change function head and parameter type */
 
