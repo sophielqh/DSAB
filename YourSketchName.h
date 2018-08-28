@@ -116,7 +116,8 @@ public:
         /*MUST have this function DO NOT change function head and parameter type */
 
         /*----optional according to your need----*/
-        return 0;
+        vector<string> topkItem;
+        return topkItem;
         /*----optional according to your need----*/
     }
     void reset()
