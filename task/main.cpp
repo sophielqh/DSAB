@@ -39,6 +39,7 @@ int main(int argc, char *argv[]) {
             }
         }
     }
+
     auto i = datasrc.begin();
     for(;i!=datasrc.end();++i)
     {
@@ -55,7 +56,10 @@ int main(int argc, char *argv[]) {
         while (dat.GetNext(str))
         {
             v.push_back(string(str, bytesPerStr));
+
+
             ++item2freq[string(str, bytesPerStr)];
+
             item2idx[string(str, bytesPerStr)]= idx++;
         }
         vector<itemType> frequentItem;
@@ -71,6 +75,11 @@ int main(int argc, char *argv[]) {
         for (; j!=sketch.end(); ++j)
         {
             SketchBase* player = (SketchBase*)ClassFactory::getInstance().getClassByName(*j);
+
+
+
+
+
             set<string> task;
             ifstream para("./config/"+*j+".txt");
             string s;
@@ -102,7 +111,12 @@ int main(int argc, char *argv[]) {
                     throughputFile +="+"+name+"="+valueStr;
                     accFile +="+"+name+"="+valueStr;
                     double value = stod(valueStr);
+
+
+
                     player->parameterSet(name,value);
+
+
                     if(indent!=-1)
                         s.assign((const string &)s,indent+1,s.length()-indent-1);
                     else
@@ -110,7 +124,9 @@ int main(int argc, char *argv[]) {
                 }
                 cout<<"ok"<<endl;
                 player->init();
+
                 frequencyTest(v,item2freq,*player,bytesPerStr,accFile+".txt");
+
             }
             
         }

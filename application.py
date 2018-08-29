@@ -65,6 +65,14 @@ def choosenSketch():
     global  sketchList
     sketchList=request.form.getlist('sketch')
     tasks = ['freq', 'topk']
+
+    '''
+    Here need to get task type from web
+
+
+    '''
+
+
     for sketch in sketchList:
         filepath = './config/' + sketch +'.txt'
         with open(filepath,'w') as f: #clear old content
@@ -327,6 +335,14 @@ def draw():
     if request.method == 'POST':
         json_info = {}
         json_info['type'] = 'freq'
+
+        '''
+        Here you need to  get graph metrics type
+
+
+
+        '''
+
         json_info['xs'] =[ i+1 for i in range(numOfXinterval)]
         tmpList = []
         json_info['lines'] = [] #init lines
