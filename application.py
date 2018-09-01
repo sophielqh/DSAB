@@ -456,7 +456,7 @@ def generate_dataset(distriName, para, tot, dis):
 
         st = ''
         for j in range(byts):
-            st += random.choice(string.ascii_letters)
+            st += random.choice(string.printable[:-5])
         b = bytes(st, encoding = 'utf-8')
         return b
 
