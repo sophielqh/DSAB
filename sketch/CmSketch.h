@@ -14,7 +14,7 @@ virtual void parameterSet(const string& parameterName, double & parameterValue)=
 virtual init() = 0;
 virtual void Insert(const char *str, const int & len) = 0;
 virtual int frequencyQuery(const char *str, const int & len) = 0;
-virtual int topkQuery(const int & k) = 0;
+virtual vector<string> topkQuery(const int & k) = 0;
 virtual void reset() = 0;//reset sketch to the initial state
 */
 class CmSketch: public SketchBase {
@@ -79,9 +79,10 @@ public:
         }
         return res;
     }
-    int topkQuery(const int & k)
+    vector<string> topkQuery(const int & k)
     {
-        return 0;
+       vector<string> topkItem;
+       return topkItem;
     }
     void reset()
     {

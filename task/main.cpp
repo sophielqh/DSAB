@@ -4,10 +4,14 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <algorithm>
 #include <set>
 #include "test.h"
 using namespace std;
-
+bool negative_sort_item(itemType &a, itemType &b)
+{
+    return a.frequency > a.frequency;
+}
 int main(int argc, char *argv[]) {
     
     ifstream config("./config/config.txt");
@@ -35,6 +39,7 @@ int main(int argc, char *argv[]) {
             }
         }
     }
+
     auto i = datasrc.begin();
     for(;i!=datasrc.end();++i)
     {
@@ -51,18 +56,45 @@ int main(int argc, char *argv[]) {
         while (dat.GetNext(str))
         {
             v.push_back(string(str, bytesPerStr));
+
+
             ++item2freq[string(str, bytesPerStr)];
+
             item2idx[string(str, bytesPerStr)]= idx++;
         }
+        vector<itemType> frequentItem;
+        for (const auto& p: item2freq)
+        {
+            itemType tmp;
+            tmp.id = p.first;
+            tmp.frequency = p.second;
+            frequentItem.push_back(tmp);
+        }
+        sort(frequentItem.begin(),frequentItem.end(),negative_sort_item);
         auto j = sketch.begin();
         for (; j!=sketch.end(); ++j)
         {
             SketchBase* player = (SketchBase*)ClassFactory::getInstance().getClassByName(*j);
+
+
+
+
+
+            set<string> task;
             ifstream para("./config/"+*j+".txt");
             string s;
             getline(para,s);
             while (getline(para,s))
             {
+                int a=s.find("task=");
+                if(a!=-1)
+                {
+                    //read task lines
+                    string tmp(s,a+5,s.length()-a-5);
+                    task.insert(tmp);
+                    continue;
+                }
+                
                 string throughputFile = "throughput_"+*j;
                 string accFile = "accurate_"+*j;
                 while (true)
@@ -79,7 +111,12 @@ int main(int argc, char *argv[]) {
                     throughputFile +="+"+name+"="+valueStr;
                     accFile +="+"+name+"="+valueStr;
                     double value = stod(valueStr);
+
+
+
                     player->parameterSet(name,value);
+
+
                     if(indent!=-1)
                         s.assign((const string &)s,indent+1,s.length()-indent-1);
                     else
@@ -87,7 +124,9 @@ int main(int argc, char *argv[]) {
                 }
                 cout<<"ok"<<endl;
                 player->init();
-                frequencyTest(v,item2freq,*player,bytesPerStr,throughputFile+".txt",accFile+".txt");
+
+                frequencyTest(v,item2freq,*player,bytesPerStr,accFile+".txt");
+
             }
             
         }
