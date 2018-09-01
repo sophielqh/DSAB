@@ -1,8 +1,10 @@
+# -*- coding:UTF-8 -*-
 from flask import Flask,render_template,request,jsonify,redirect,url_for
 from werkzeug.utils import secure_filename
-from subprocess import run,Popen
+from subprocess import Popen
 import  os
 import json
+
 app = Flask(__name__)     #创建一个wsgi应用
 #to store sketches choosen by users
 sketchList = []
@@ -448,15 +450,26 @@ def generate_dataset(distriName, para, tot, dis):
             res.append(p1 - p2)
         return res
 
+    def random_bytes(byts):
+        import random
+        import string
+
+        st = ''
+        for j in range(byts):
+            st += random.choice(string.ascii_letters)
+        b = bytes(st, encoding = 'utf-8')
+        return b
+
     def gen_random_strings(len, byts):
         strs = set()
         res = []
         for i in range(len):
-            s = os.urandom(byts)
+            s = random_bytes(byts)
             while s in strs:
-                s = os.urandom(byts)
+                s = random_bytes(byts)
             res.append(s)
             strs.add(s)
+            print(s)
         return res
 
     def gen(freqs, byts):
@@ -567,9 +580,3 @@ def generate_dataset(distriName, para, tot, dis):
 
 if __name__ == '__main__':
     app.run(host= '0.0.0.0',port =8086, debug=True)             #启动app的调试模式
-
-
-
-
-
-
