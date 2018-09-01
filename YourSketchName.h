@@ -2,6 +2,7 @@
 #define YOURSKETCHNAME_H //must change this MACRO
 #include "SketchBase.h" //DO NOT change this include
 #include "../hash/hashfunction.h"//If you want to use DSAB-builtin hashfunction must include this
+#include "../hash/cuckoo_hashing.h" //If you want to use DSAB-builtin hashtable must include thiss
 
 /*----optional according to your need----*/
 #include<string>
@@ -19,6 +20,17 @@ HOW TO USE:
 */
 /*----builtin hashfunction----*/
 
+/*----builtin hashTable----*/
+/*
+DSAB-builtin hashTable type:cuckoo_hashtable\
+HOW TO USE:
+define: cuckoo::CuckooHashing<key_len, capacity> ht;
+bool insert(uint8_t * key, uint32_t val, int from_k = -1, int remained = 5)
+bool query(uint8_t * key, uint32_t & val)
+bool find(uint8_t * key)
+bool erase(uint8_t * key)
+*/
+/*----builtin hashTable----*/
 
 /*----SketchBase virtual function must be finished----*/
 /*
