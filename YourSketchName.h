@@ -2,6 +2,7 @@
 #define YOURSKETCHNAME_H //must change this MACRO
 #include "SketchBase.h" //DO NOT change this include
 #include "../hash/hashfunction.h"//If you want to use DSAB-builtin hashfunction must include this
+#include "../hash/cuckoo_hashing.h" //If you want to use DSAB-builtin hashtable must include thiss
 
 /*----optional according to your need----*/
 #include<string>
@@ -19,6 +20,17 @@ HOW TO USE:
 */
 /*----builtin hashfunction----*/
 
+/*----builtin hashTable----*/
+/*
+DSAB-builtin hashTable type:cuckoo_hashtable\
+HOW TO USE:
+define: cuckoo::CuckooHashing<key_len, capacity> ht;
+bool insert(uint8_t * key, uint32_t val, int from_k = -1, int remained = 5)
+bool query(uint8_t * key, uint32_t & val)
+bool find(uint8_t * key)
+bool erase(uint8_t * key)
+*/
+/*----builtin hashTable----*/
 
 /*----SketchBase virtual function must be finished----*/
 /*
@@ -27,7 +39,7 @@ virtual void parameterSet(const string& parameterName, double & parameterValue)=
 virtual init() = 0;
 virtual void Insert(const char *str, const int & len) = 0;
 virtual int frequencyQuery(const char *str, const int & len) = 0;
-virtual int topkQuery(const int & k) = 0;
+virtual vector<string>  topkQuery(const int & k) = 0;
 virtual void reset() = 0;//reset sketch to the initial state
 */
 /*----SketchBase virtual function must be finished----*/
@@ -111,12 +123,13 @@ public:
         return res;
         /*----optional according to your need----*/
     }
-    int topkQuery(const int & k)
+    vector<string>  topkQuery(const int & k)
     {
         /*MUST have this function DO NOT change function head and parameter type */
 
         /*----optional according to your need----*/
-        return 0;
+        vector<string> topkItem;
+        return topkItem;
         /*----optional according to your need----*/
     }
     void reset()
